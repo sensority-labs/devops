@@ -79,10 +79,10 @@ services:
     image: haproxy:latest
     volumes:
       - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
-#      - ./certs:/etc/ssl/certs:ro
+      - /etc/letsencrypt/live/sensority.app:/etc/ssl/certs:ro
     ports:
       - "80:80"
-#      - "443:443"
+      - "443:443"
       - "2222:2222"
     restart: unless-stopped
     depends_on:
