@@ -8,6 +8,7 @@ services:
       ETH_STREAM_MAX_MSGS: ${ETH_STREAM_MAX_MSGS}
       ETH_STREAM_NAME: ${ETH_STREAM_NAME}
       NATS_URL: "nats://nats:4222"
+      SENTRY_DSN: ${SENTRY_DSN}
     depends_on:
       - nats
     networks:
