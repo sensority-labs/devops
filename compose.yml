@@ -11,6 +11,7 @@ services:
       SENTRY_DSN: ${BIG_EAR_SENTRY_DSN}
     depends_on:
       - nats
+    restart: on-failure
     networks:
       - sensority-labs
 
