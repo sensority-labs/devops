@@ -8,7 +8,7 @@ services:
       ETH_STREAM_MAX_MSGS: ${ETH_STREAM_MAX_MSGS}
       ETH_STREAM_NAME: ${ETH_STREAM_NAME}
       NATS_URL: "nats://nats:4222"
-      SENTRY_DSN: ${SENTRY_DSN}
+      SENTRY_DSN: ${BIG_EAR_SENTRY_DSN}
     depends_on:
       - nats
     networks:
@@ -31,6 +31,7 @@ services:
       GITHUB_TOKEN: ${GITHUB_PULL_TOKEN}
       NATS_URL: "nats://nats:4222"
       NETWORK_NAME: "sensority-labs"
+      SENTRY_DSN: ${BOTS_SENTRY_DSN}
       PORT: 5005
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
