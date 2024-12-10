@@ -25,6 +25,7 @@ services:
       - nats
     networks:
       - sensority-labs
+    restart: on-failure
 
   bot-builder:
     image: ghcr.io/sensority-labs/bot-builder
@@ -39,6 +40,7 @@ services:
       - /usr/bin/docker:/usr/bin/docker
     networks:
       - sensority-labs
+    restart: always
 
   core:
     image: ghcr.io/sensority-labs/core
@@ -67,6 +69,7 @@ services:
       - POSTGRES_DB=sensority_core
     networks:
         - sensority-labs
+    restart: always
 
   nats:
     image: nats
@@ -79,6 +82,7 @@ services:
       - "--sd=/data"
     networks:
       - sensority-labs
+    restart: always
 
   haproxy:
     image: haproxy:latest
