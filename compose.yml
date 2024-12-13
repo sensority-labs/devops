@@ -56,9 +56,6 @@ services:
       - user_home_data:/home
       - etc_data:/etc
     restart: always
-    ports:
-      - "8000:8000"
-      - "2222:22"
     networks:
       - sensority-labs
 
@@ -97,8 +94,6 @@ services:
       - "--sd=/data"
     networks:
       - sensority-labs
-    ports:
-      - "4222:4222"
     restart: always
 
   haproxy:
