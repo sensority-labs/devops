@@ -56,8 +56,22 @@ services:
       - user_home_data:/home
       - etc_data:/etc
     restart: always
+    ports:
+      - "8000:8000"
+      - "2222:22"
     networks:
       - sensority-labs
+
+  log_streamer:
+    image: ghcr.io/sensority-labs/log-streamer
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    environment:
+      PORT: 8088
+      SENTRY_DSN: ${LOG_STREAMER_SENTRY_DSN}
+    networks:
+      - sensority-labs
+    restart: on-failure
 
   db:
     image: postgres:17.2-alpine
@@ -75,6 +89,7 @@ services:
     image: nats
     volumes:
       - nats:/data
+      - ./nats-server.conf:/nats-server.conf
     command:
       - "--name=nats"
       - "--http_port=8222"
@@ -82,6 +97,8 @@ services:
       - "--sd=/data"
     networks:
       - sensority-labs
+    ports:
+      - "4222:4222"
     restart: always
 
   haproxy:
