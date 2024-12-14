@@ -48,7 +48,7 @@ services:
       - db
     environment:
       DATABASE_URL: postgres://postgres:postgres@db:5432/sensority_core
-      WEBHOOK_URL: "http://bot-builder:5005/build"
+      BOTMAN_URL: "http://bot-builder:5005/build"
       API_ACCESS_TOKEN: ${API_ACCESS_TOKEN}
       GIT_SERVER_ADDRESS: ${GIT_SERVER_ADDRESS}
       DEBUG: "True"
