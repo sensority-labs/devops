@@ -34,6 +34,7 @@ services:
       NATS_URL: "nats://nats:4222"
       NETWORK_NAME: "sensority-labs"
       BOTS_SENTRY_DSN: ${BOTS_SENTRY_DSN}
+      BOT_JSON_RPC_URL: ${BOT_JSON_RPC_URL}
       PORT: 5005
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -43,7 +44,8 @@ services:
     restart: always
 
   core:
-    image: ghcr.io/sensority-labs/core
+#    image: ghcr.io/sensority-labs/core
+    image: core:local
     depends_on:
       - db
     environment:
@@ -56,6 +58,9 @@ services:
       - user_home_data:/home
       - etc_data:/etc
     restart: always
+    ports:
+      - "8000:8000"
+      - "2222:22"
     networks:
       - sensority-labs
 
@@ -78,6 +83,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=sensority_core
+    ports:
+      - "5432:5432"
     networks:
         - sensority-labs
     restart: always
@@ -104,7 +111,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "2222:2222"
+      - "2222:22"
     restart: unless-stopped
     user: root # required to read certificates
     depends_on:
