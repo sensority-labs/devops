@@ -116,16 +116,21 @@ services:
   eth-node:
     build:
       context: eth-node/.
-    environment:
-      JSON_RPC_URL: ${NODE_UPSTREAM_RPC_URL}
+    volumes:
+        - eth_node_data:/data
     networks:
       - sensority-labs
+    command: >
+      helios ethereum --execution-rpc ${NODE_UPSTREAM_RPC_URL} 
+      --rpc-bind-ip 0.0.0.0 
+      --data-dir /data
 
 volumes:
   db_data:
   nats:
   user_home_data:
   etc_data:
+  eth_node_data:
 
 networks:
   sensority-labs:
