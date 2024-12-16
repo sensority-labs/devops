@@ -34,7 +34,7 @@ services:
       NATS_URL: "nats://nats:4222"
       NETWORK_NAME: "sensority-labs"
       BOTS_SENTRY_DSN: ${BOTS_SENTRY_DSN}
-      BOT_JSON_RPC_URL: ${BOT_JSON_RPC_URL}
+      BOT_JSON_RPC_URL: "http://eth-node:8545"
       PORT: 5005
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -112,6 +112,15 @@ services:
       - core
     networks:
       - sensority-labs
+
+  eth-node:
+    build:
+      context: eth-node/.
+    environment:
+      JSON_RPC_URL: ${NODE_UPSTREAM_RPC_URL}
+    networks:
+      - sensority-labs
+
 volumes:
   db_data:
   nats:
