@@ -92,6 +92,7 @@ services:
       - "--name=nats"
       - "--http_port=8222"
       - "--js"
+      - "-DV"
       - "--sd=/data"
     networks:
       - sensority-labs
