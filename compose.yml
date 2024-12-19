@@ -27,14 +27,15 @@ services:
       - sensority-labs
     restart: on-failure
 
-  bot-builder:
-    image: ghcr.io/sensority-labs/bot-builder
+  botman:
+    image: ghcr.io/sensority-labs/botman
     environment:
+      API_ACCESS_TOKEN: ${API_ACCESS_TOKEN}
       GITHUB_TOKEN: ${GITHUB_PULL_TOKEN}
       NATS_URL: "nats://nats:4222"
+      CORE_URL: "http://core:8000"
       NETWORK_NAME: "sensority-labs"
       BOTS_SENTRY_DSN: ${BOTS_SENTRY_DSN}
-      BOT_JSON_RPC_URL: "http://eth-node:8545"
       PORT: 5005
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -52,7 +53,6 @@ services:
       BOTMAN_URL: ${BOTMAN_URL}
       API_ACCESS_TOKEN: ${API_ACCESS_TOKEN}
       GIT_SERVER_ADDRESS: ${GIT_SERVER_ADDRESS}
-      DEBUG: "True"
     volumes:
       - user_home_data:/home
       - etc_data:/etc
@@ -112,18 +112,6 @@ services:
       - core
     networks:
       - sensority-labs
-
-  eth-node:
-    build:
-      context: eth-node/.
-    volumes:
-        - eth_node_data:/data
-    networks:
-      - sensority-labs
-    command: >
-      helios ethereum --execution-rpc ${NODE_UPSTREAM_RPC_URL} 
-      --rpc-bind-ip 0.0.0.0 
-      --data-dir /data
 
 volumes:
   db_data:
